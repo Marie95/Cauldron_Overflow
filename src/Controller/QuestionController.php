@@ -12,15 +12,15 @@ class QuestionController extends AbstractController
 {
 
     /**
-     * @Route("/")
+     * @Route("/", name="app_homepage")
      */
     public function homepage()
     {
-        return new Response("homepage");
+        return $this->render('homepage.html.twig');
     }
 
     /**
-     * @Route("/question/{id}")
+     * @Route("/question/{id}", name="app_question_show")
      */
     public function show($id)
     {
