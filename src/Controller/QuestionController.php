@@ -4,8 +4,8 @@
 namespace App\Controller;
 
 
+use App\service\MarkdownHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class QuestionController extends AbstractController
@@ -22,14 +22,17 @@ class QuestionController extends AbstractController
     /**
      * @Route("/question/{id}", name="app_question_show")
      */
-    public function show($id)
+    public function show($id, MarkdownHelper $mdHelper)
     {
+        dump($this->getParameter('kernel.charset'));
+        $questionText = 'I\'ve been turned into a **cat**, any thoughts on how to turn back? While I\'m adorable, I don\'t really care for cat food.';
         $answers = [
-            'Make sure your cat is sitting purrrfectly still 🤣',
+            'Make sure your cat is sitting `purrrfectly` still 🤣',
             'Honestly, I like furry shoes better than MY cat',
             'Maybe... try saying the spell backwards?',
         ];
-        return $this->render('question/show.html.twig', ['id' => $id, 'answers' => $answers]);
+        $parsedQuestionText = $mdHelper->parse($questionText);
+        return $this->render('question/show.html.twig', ['questionText' => $parsedQuestionText, 'id'=> $id, 'answers' => $answers]);
     }
 
 }
