@@ -46,6 +46,7 @@ class QuestionController extends AbstractController
             Does anyone have a spell to call your pants back?
 EOF
             );
+        $question->setVotes(rand(0,100));
         if (rand(1, 10) > 2) {
             $question->setAskedAt(new \DateTime(sprintf('-%d days', rand(1, 100))));
         }

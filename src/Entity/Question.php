@@ -38,25 +38,9 @@ class Question
     private $askedAt;
 
     /**
-     * @ORM\Column(type="integer"
+     * @ORM\Column(type="integer")
      */
-    private $votes;
-
-    /**
-     * @return mixed
-     */
-    public function getVotes()
-    {
-        return $this->votes;
-    }
-
-    /**
-     * @param mixed $votes
-     */
-    public function setVotes($votes): void
-    {
-        $this->votes = $votes;
-    }
+    private $votes = 0;
 
     /**
      * @return mixed
@@ -138,5 +122,26 @@ class Question
         $this->askedAt = $askedAt;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getVotes()
+    {
+        return $this->votes;
+    }
+
+    /**
+     * @param mixed $votes
+     */
+    public function setVotes($votes): void
+    {
+        $this->votes = $votes;
+    }
+
+    public function getVotesString(): string
+    {
+        $prefix = $this->getVotes() >=0 ? '+' : '-';
+        return sprintf('%s %d', $prefix, abs($this->getVotes()));
+    }
 
 }
