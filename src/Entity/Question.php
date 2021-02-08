@@ -38,6 +38,27 @@ class Question
     private $askedAt;
 
     /**
+     * @ORM\Column(type="integer"
+     */
+    private $votes;
+
+    /**
+     * @return mixed
+     */
+    public function getVotes()
+    {
+        return $this->votes;
+    }
+
+    /**
+     * @param mixed $votes
+     */
+    public function setVotes($votes): void
+    {
+        $this->votes = $votes;
+    }
+
+    /**
      * @return mixed
      */
     public function getId()

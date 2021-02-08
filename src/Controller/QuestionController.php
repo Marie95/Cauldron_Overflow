@@ -5,6 +5,7 @@ namespace App\Controller;
 
 
 use App\Entity\Question;
+use App\Repository\QuestionRepository;
 use App\service\MarkdownHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,9 +18,14 @@ class QuestionController extends AbstractController
     /**
      * @Route("/", name="app_homepage")
      */
-    public function homepage()
+    public function homepage(QuestionRepository $repository)
     {
-        return $this->render('homepage.html.twig');
+//        $repository = $entityManager->getRepository(Question::class);
+//        $questions = $repository->findAll();
+        $questions = $repository->findAllAskedOrderedMyNewest();
+        return $this->render('homepage.html.twig', [
+            'questions' => $questions
+        ]);
     }
 
     /**
@@ -51,18 +57,25 @@ EOF
     /**
      * @Route("/questions/{slug}", name="app_question_show")
      */
-    public function show($slug, MarkdownHelper $mdHelper, EntityManagerInterface $entityManager)
+    public function show(Question $q)
     {
-        $repository = $entityManager->getRepository(Question::class);
-        $q = $repository->findOneBy(['slug' => $slug]);
+//        $repository = $entityManager->getRepository(Question::class);
+//        /** @var Question|null $q */
+//        $q = $repository->findOneBy(['slug' => $slug]);
+//        if (!$q)
+//        {
+//            throw $this->createNotFoundException(sprintf('no question found for "%s"', $slug));
+//
+//        }
         $answers = [
             'Make sure your cat is sitting `purrrfectly` still 🤣',
             'Honestly, I like furry shoes better than MY cat',
             'Maybe... try saying the spell backwards?',
         ];
-        $questionText = 'I\'ve been turned into a **cat**, any thoughts on how to turn back? While I\'m adorable, I don\'t really care for cat food.';
 
-        $parsedQuestionText = $mdHelper->parse($questionText);
-        return $this->render('question/show.html.twig', ['questionText' => $parsedQuestionText, 'slug'=> $slug, 'answers' => $answers]);
+        return $this->render('question/show.html.twig', [
+            'question' => $q,
+            'answers' => $answers
+        ]);
     }
 }
