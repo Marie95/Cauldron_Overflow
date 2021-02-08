@@ -16,7 +16,7 @@
 
 {% extends 'base.html.twig' %}
 
-{% block title %}Question: {{ id }}{% endblock %}
+{% block title %}Question: {{ slug }}{% endblock %}
 
 {% block body %}
     <div class="container">
@@ -30,7 +30,7 @@
                                 <img src="/images/tisha.png" width="100" height="100">
                             </div>
                             <div class="col">
-                                <h1 class="q-title-show">Question: {{ id }}</h1>
+                                <h1 class="q-title-show">Question: {{ slug }}</h1>
                                 <div class="q-display p-3">
                                     <i class="fa fa-quote-left mr-3"></i>
                                     <p class="d-inline">{{ questionText|markdown }}</p>
