@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Question
 {
     /**
-     * @ORM\ID()
+     * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
@@ -23,7 +23,7 @@ class Question
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=100, unique=true)
      */
     private $slug;
 
