@@ -144,4 +144,16 @@ class Question
         return sprintf('%s %d', $prefix, abs($this->getVotes()));
     }
 
+    public function upVote()
+    {
+        $this->votes++;
+        return $this->votes;
+    }
+
+    public function downVote()
+    {
+        $this->votes--;
+        return $this->votes;
+    }
+
 }
