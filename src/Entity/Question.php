@@ -4,12 +4,15 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
- * @ORM\Entity(repositoryClass="QuestionRepository::class")
+ * @ORM\Entity(repositoryClass="App\Repository\QuestionRepository")
  */
 class Question
 {
+    use TimestampableEntity;
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -24,6 +27,7 @@ class Question
 
     /**
      * @ORM\Column(type="string", length=100, unique=true)
+     * @Gedmo\Slug(fields={"name"})
      */
     private $slug;
 
@@ -36,6 +40,11 @@ class Question
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $askedAt;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $votes = 0;
 
     /**
      * @return mixed
@@ -117,5 +126,38 @@ class Question
         $this->askedAt = $askedAt;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getVotes()
+    {
+        return $this->votes;
+    }
+
+    /**
+     * @param mixed $votes
+     */
+    public function setVotes($votes): void
+    {
+        $this->votes = $votes;
+    }
+
+    public function getVotesString(): string
+    {
+        $prefix = $this->getVotes() >=0 ? '+' : '-';
+        return sprintf('%s %d', $prefix, abs($this->getVotes()));
+    }
+
+    public function upVote()
+    {
+        $this->votes++;
+        return $this->votes;
+    }
+
+    public function downVote()
+    {
+        $this->votes--;
+        return $this->votes;
+    }
 
 }

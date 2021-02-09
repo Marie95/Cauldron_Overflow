@@ -12,7 +12,9 @@
         "doctrine/doctrine-migrations-bundle": "^3.0",
         "doctrine/orm": "^2.8",
         "knplabs/knp-markdown-bundle": "^1.8",
+        "knplabs/knp-time-bundle": "^1.15",
         "sensio/framework-extra-bundle": "^6.0",
+        "stof/doctrine-extensions-bundle": "^1.5",
         "symfony/asset": "5.2.*",
         "symfony/console": "5.2.*",
         "symfony/debug-bundle": "5.2.*",
@@ -72,5 +74,9 @@
             "allow-contrib": false,
             "require": "5.2.*"
         }
+    },
+    "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^3.4",
+        "zenstruck/foundry": "^1.7"
     }
 }
