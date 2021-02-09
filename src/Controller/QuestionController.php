@@ -60,14 +60,6 @@ EOF
      */
     public function show(Question $q)
     {
-//        $repository = $entityManager->getRepository(Question::class);
-//        /** @var Question|null $q */
-//        $q = $repository->findOneBy(['slug' => $slug]);
-//        if (!$q)
-//        {
-//            throw $this->createNotFoundException(sprintf('no question found for "%s"', $slug));
-//
-//        }
         $answers = [
             'Make sure your cat is sitting `purrrfectly` still 🤣',
             'Honestly, I like furry shoes better than MY cat',
@@ -78,5 +70,13 @@ EOF
             'question' => $q,
             'answers' => $answers
         ]);
+    }
+
+    /**
+     * @Route("/questions/{slug}/vote", name="app_question_vote", methods="POST")
+     */
+    public function questionVote()
+    {
+        
     }
 }
