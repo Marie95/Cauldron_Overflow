@@ -4,7 +4,6 @@ namespace App\Factory;
 
 use App\Entity\Question;
 use App\Repository\QuestionRepository;
-use Symfony\Component\String\Slugger\AsciiSlugger;
 use Zenstruck\Foundry\RepositoryProxy;
 use Zenstruck\Foundry\ModelFactory;
 use Zenstruck\Foundry\Proxy;
@@ -25,10 +24,11 @@ final class QuestionFactory extends ModelFactory
         return $this->addState(['askedAt' => null]);
 
     }
+
     protected function getDefaults(): array
     {
         return [
-            'name' => self::faker()->realText(50),
+            'name' => self::faker()->realText(15),
             //'slug' => self::faker()->slug,
             'question' => self::faker()->paragraphs(
                 self::faker()->numberBetween(1, 5),
@@ -43,12 +43,7 @@ final class QuestionFactory extends ModelFactory
     {
         // see https://github.com/zenstruck/foundry#initialization
         return $this
-             ->afterInstantiate(function(Question $question) {
-                 if (!$question->getSlug()) {
-                     $slugger = new AsciiSlugger();
-                     $question->setSlug($slugger->slug($question->getName()));
-                 }
-             })
+            // ->beforeInstantiate(function(Question $question) {})
             ;
     }
 
